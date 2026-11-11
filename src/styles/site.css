@@ -281,11 +281,11 @@
     min-height: 490px;
   }
   .box-rise-window {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 84px 12px clamp(104px, min(34vw, 25svh), 170px);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 155px 12px 24px;
+}
   #caixa .box-heading {
     font-size: 17px;
     margin: 0 0 8px;

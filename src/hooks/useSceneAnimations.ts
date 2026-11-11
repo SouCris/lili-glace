@@ -573,8 +573,16 @@ export function useSceneAnimations({
         const l = timeline.labels
         const increment = Math.min(Math.abs(step), 80) / 800
         if (time <= l['hero-end']) {
-          return time + increment >= l['hero-end'] ? l['kitchen-start'] : time + increment
-        }
+  if (window.innerWidth < 768) {
+    return time < l['hero-end'] - 0.02
+      ? l['hero-end'] - 0.01
+      : l['kitchen-start']
+  }
+
+  return time + increment >= l['hero-end']
+    ? l['kitchen-start']
+    : time + increment
+}
 
         if (time <= l['frying-start']) return (l['frying-start'] + l['coating-start']) / 2
         if (time < l['coating-start']) return (l['coating-start'] + l['flavors-start']) / 2
@@ -724,6 +732,27 @@ export function useSceneAnimations({
         )
           return
         touchConsumed = true
+        if (
+  time < timeline.labels['hero-end'] - 0.02 &&
+  target < timeline.labels['hero-end']
+) {
+  lockUntil = performance.now() + 2000
+
+  const movimento = { y: window.scrollY }
+
+  gsap.to(movimento, {
+    y: st.start + (target / timeline.duration()) * (st.end - st.start),
+    duration: 1.8,
+    ease: 'none',
+    onUpdate: () => {
+      window.scrollTo(0, movimento.y)
+      st.update()
+      st.getTween()?.progress(1)
+    },
+  })
+
+  return
+}
         lockUntil = performance.now() + (sceneNumber(time) !== sceneNumber(target) ? 2100 : 180)
         window.scrollTo({
           top: st.start + (target / timeline.duration()) * (st.end - st.start),
@@ -872,12 +901,21 @@ export function useSceneAnimations({
       // Disparo na chegada: independente da rodinha e sem espaço extra de pin.
       ScrollTrigger.create({
         trigger: section,
-        start: 'top 40%',
+        start: 'top 85%',
         end: 'bottom top',
         onRefreshInit: measureOpening,
         onEnter: () => {
-          rise.restart()
-        },
+  rise.restart()
+
+  if (window.innerWidth < 768) {
+    const topo = window.scrollY + section.getBoundingClientRect().top
+
+    window.scrollTo({
+      top: topo,
+      behavior: 'smooth',
+    })
+  }
+},
         onLeaveBack: () => {
           rise.pause(0)
         },
@@ -902,19 +940,20 @@ export function useSceneAnimations({
       if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       // Somente o painel entra com a rolagem. O vídeo toca por conta própria.
       gsap.fromTo(
-        '.final-panel',
-        { yPercent: 100 },
-        {
-          yPercent: 0,
-          duration: 1.15,
-          ease: 'power2.inOut',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 65%',
-            toggleActions: 'play none none reset',
-          },
-        },
-      )
+  '.final-copy',
+  { autoAlpha: 0, y: 30 },
+  {
+    autoAlpha: 1,
+    y: 0,
+    duration: 0.7,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top 85%',
+      toggleActions: 'play none none reverse',
+    },
+  },
+)
     }, section ?? undefined)
     return () => {
       breakpoint.removeEventListener('change', updateSource)

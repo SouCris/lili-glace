@@ -142,11 +142,14 @@ function App() {
     }
 
     if (id === 'caixa' && catalogoRef.current) {
-      const top = window.scrollY + catalogoRef.current.getBoundingClientRect().top
-      window.scrollTo({ top, behavior: 'instant' })
-      ScrollTrigger.update()
-      return
-    }
+    if (window.innerWidth >= 768) {
+    catalogoRef.current.dataset.entradaDireta = 'true'}
+
+    const top = window.scrollY + catalogoRef.current.getBoundingClientRect().top
+    window.scrollTo({ top, behavior: 'instant' })
+    ScrollTrigger.update()
+    return
+}
 
     document.getElementById(id)?.scrollIntoView({
       behavior: 'smooth',
@@ -217,7 +220,7 @@ function App() {
 
         <video
           ref={desktopVideo}
-          src="/cenas/lili-mobile.mp4"
+          src="/cenas/lili-desktop.mp4"
           muted
           playsInline
           preload="auto"
