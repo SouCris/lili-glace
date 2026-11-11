@@ -278,14 +278,17 @@
 }
 @media (max-width: 767px) {
   .box-section {
-    min-height: 640px;
+    min-height: 490px;
   }
   .box-rise-window {
-    padding: 108px 16px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 84px 12px clamp(104px, min(34vw, 25svh), 170px);
   }
   #caixa .box-heading {
-    font-size: 18px;
-    margin-bottom: 12px;
+    font-size: 17px;
+    margin: 0 0 8px;
   }
   .box-background {
     inset: auto auto 0 -25%;
@@ -295,35 +298,40 @@
     object-fit: contain;
   }
   .box-grid {
-    max-width: 320px;
+    width: 100%;
+    max-width: 296px;
+    margin: 0 auto;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px 12px;
+    gap: 6px 10px;
   }
   .box-donut {
-    height: 46px;
-    margin-bottom: -7px;
+    height: clamp(28px, 5svh, 38px);
+    margin-bottom: -4px;
   }
   .box-details {
-    padding: 10px 10px 7px;
-    border-radius: 13px;
+    padding: 6px 8px 4px;
+    border-radius: 12px;
   }
   .box-quantity {
-    margin-top: 0;
+    margin-top: 1px;
+    border: 0;
+    background: #f8ede5;
   }
   .box-quantity button {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 34px;
   }
   .box-details h3 {
     font-size: 12px;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
   }
   .box-details p {
     display: none;
   }
   .box-price {
-    font-size: 13px;
-    margin-bottom: 3px;
+    font-size: 12px;
+    line-height: 1.25;
+    margin: 0;
   }
   .box-add {
     font-size: 10px;
@@ -709,7 +717,7 @@
   .site-header > button:first-child {
     font-size: 19px;
   }
-  .site-header > button:last-child {
+  .site-header > button[aria-controls="mobile-navigation"] {
     min-height: 44px;
     padding: 8px 14px;
     font-size: 12px;
@@ -718,7 +726,7 @@
     border: 1px solid #ffffff80;
   }
   .site-mobile-menu {
-    inset: 100px 18px auto auto;
+    inset: calc(100% + 4px) 16px auto auto;
     width: min(240px, calc(100% - 36px));
     max-height: calc(100svh - 120px);
     overflow-y: auto;
@@ -727,9 +735,9 @@
     z-index: 60;
     border-radius: 18px;
     border: 1px solid #ffffffb3;
-    background: #fff7f3f5;
+    background: #fff7f3;
+    color: #643b32;
     box-shadow: 0 8px 24px #643b321a;
-    backdrop-filter: blur(12px);
   }
   .site-mobile-menu > button {
     min-height: 44px;

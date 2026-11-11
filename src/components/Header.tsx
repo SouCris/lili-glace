@@ -97,22 +97,22 @@ export function Header({
         >
           {menuAberto ? 'Fechar ✕' : 'Menu ☰'}
         </button>
-      </header>
 
-      {menuAberto && (
-        <nav
-          id="mobile-navigation"
-          aria-label="Navegação principal"
-          className="site-mobile-menu fixed inset-x-4 top-24 z-[80] flex flex-col gap-4 rounded-2xl bg-[#fff0ed] p-6 font-bold shadow-xl lg:hidden"
-        >
-          <button onClick={() => navegar('inicio')}>Início</button>
-          <button onClick={() => navegar('preparo')}>Nossa cozinha</button>
-          <button onClick={() => navegar('sabores')}>Sabores</button>
-          <button onClick={() => navegar('caixa')}>Monte sua caixa</button>
-          <button onClick={() => navegar('contato')}>Contato</button>
-          <button onClick={abrirCaixa}>Ver minha caixa ({quantidadeTotal})</button>
-        </nav>
-      )}
+        {menuAberto && (
+          <nav
+            id="mobile-navigation"
+            aria-label="Navegação principal"
+            className="site-mobile-menu absolute inset-x-4 top-full z-[80] flex flex-col gap-4 rounded-2xl bg-[#fff0ed] p-6 font-bold shadow-xl lg:hidden"
+          >
+            <button onClick={() => navegar('inicio')}>Início</button>
+            <button onClick={() => navegar('preparo')}>Nossa cozinha</button>
+            <button onClick={() => navegar('sabores')}>Sabores</button>
+            <button onClick={() => navegar('caixa')}>Monte sua caixa</button>
+            <button onClick={() => navegar('contato')}>Contato</button>
+            <button onClick={abrirCaixa}>Ver minha caixa ({quantidadeTotal})</button>
+          </nav>
+        )}
+      </header>
     </>
   )
 }
