@@ -1,0 +1,4 @@
+node_modules
+dist
+public/cenas
+package-lock.json
