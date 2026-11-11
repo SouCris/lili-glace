@@ -217,7 +217,7 @@ function App() {
 
         <video
           ref={desktopVideo}
-          src="/cenas/lili-desktop.mp4"
+          src="/cenas/lili-mobile.mp4"
           muted
           playsInline
           preload="auto"
